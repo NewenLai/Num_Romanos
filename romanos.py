@@ -5,6 +5,10 @@ simbolos={
     "millares": ["", "M", "MM", "MMM"]
 }
 
+Numeros_romanos = { 
+    "I" : 1, "V" : 5, "X" : 10, "L": 50, "C": 100, "D": 500, "M": 1000
+    }
+
 def validar(n):
     #isinstance(n, int) -> valida si n es un int (valida que n sea del tipo indicado)
     if not isinstance(n, int):
@@ -78,8 +82,28 @@ def conversor(entrada):
             #count +=1
     return cadena
 
-muestra = int(input("Introduzca numero: "))
-print(convRomanos(muestra))
+def convSimbolos(n):
+    acumulador = 0
+    valor_ant = 0 
+    for caracter in n:
+        valor = Numeros_romanos[caracter]
+        if valor> valor_ant:
+            if valor_ant in (5, 50, 500):
+                raise ValueError("No se pueden restar V, L o D")
+
+            if valor_ant > 0 and valor/valor_ant <= 10:
+                raise ValueError("No se admiten restas en digitos 10 veces mayores")
+
+            acumulador -= valor_ant
+            acumulador += valor - valor_ant
+        else:
+            acumulador += valor
+        valor_ant = valor
+    return acumulador
+
+
+#muestra = int(input("Introduzca numero: "))
+#print(convRomanos(muestra))
 #resultado = conversor(muestra)
 #print ("El numero romano resultante es: ", resultado)
 
