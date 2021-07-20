@@ -20,8 +20,10 @@ class RomanosTests(unittest.TestCase):
         self.assertEqual(convSimbolos("IV"), 4)
         self.assertEqual(convSimbolos("XL"), 40)
         self.assertEqual(convSimbolos("CD"), 400)
+        self.assertEqual(convSimbolos("XC"), 90)
         with self.assertRaises(ValueError):
             convSimbolos("IM")
             convSimbolos("IL")
+            
             convSimbolos("XM")
 
