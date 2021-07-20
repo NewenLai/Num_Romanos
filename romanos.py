@@ -91,7 +91,7 @@ def convSimbolos(n):
             if valor_ant in (5, 50, 500):
                 raise ValueError("No se pueden restar V, L o D")
 
-            if valor_ant > 0 and valor/valor_ant >= 10:
+            if valor_ant > 0 and valor> valor_ant * 10:
                 raise ValueError("No se admiten restas en digitos 10 veces mayores")
 
             acumulador -= valor_ant

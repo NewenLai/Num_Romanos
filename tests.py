@@ -24,6 +24,6 @@ class RomanosTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             convSimbolos("IM")
             convSimbolos("IL")
-            
             convSimbolos("XM")
+    #def tests_no_mas_de_tres_repeticiones(self):
 
