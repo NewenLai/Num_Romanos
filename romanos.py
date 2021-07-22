@@ -3,7 +3,7 @@ simbolos={
     "decenas": ["", "X", "XX", "XXX", "LX", "L", "LX", "LXX", "LXXX", "XC"],
     "centenas": ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
     "millares": ["", "M", "MM", "MMM"]
-}
+    }
 
 Numeros_romanos = { 
     "I" : 1, "V" : 5, "X" : 10, "L": 50, "C": 100, "D": 500, "M": 1000
@@ -93,7 +93,7 @@ def convSimbolos(n):
     for caracter in n:
         valor = Numeros_romanos[caracter]
 
-        if valor> valor_ant:
+        if valor_ant and valor > valor_ant:
             if valor_ant in (5, 50, 500):
                 raise ValueError("No se pueden restar V, L o D")
 
@@ -105,9 +105,8 @@ def convSimbolos(n):
             
             mayor +=1
 
-            if mayor > 2:
+            if mayor > 1:
                 raise ValueError("Has pikao")
-            
 
             acumulador -= valor_ant
             acumulador += valor - valor_ant
