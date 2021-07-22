@@ -84,9 +84,11 @@ def conversor(entrada):
 
 def convSimbolos(n):
     acumulador = 0
-    valor_ant = 0 
+    valor_ant = 0
+    repeticion = 0 
     for caracter in n:
         valor = Numeros_romanos[caracter]
+
         if valor> valor_ant:
             if valor_ant in (5, 50, 500):
                 raise ValueError("No se pueden restar V, L o D")
@@ -94,11 +96,24 @@ def convSimbolos(n):
             if valor_ant > 0 and valor> valor_ant * 10:
                 raise ValueError("No se admiten restas en digitos 10 veces mayores")
 
+            if repeticion > 0: #Al poner repeticion > 0 al inicio del bucle me aseguro que no tiene valor 0 al cambiar de caracter
+                raise ValueError("No se pueden restar dos iguales")
+
+
             acumulador -= valor_ant
             acumulador += valor - valor_ant
         else:
             acumulador += valor
+
+        if valor == valor_ant:
+            repeticion += 1
+            if repeticion == 3:
+                raise ValueError("No se pueden poner 4 veces el mismo simbolo")
+        else:
+            repeticion = 0
+
         valor_ant = valor
+
     return acumulador
 
 
