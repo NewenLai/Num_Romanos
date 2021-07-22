@@ -10,6 +10,8 @@ Numeros_romanos = {
     }
 
 def validar(n):
+
+
     #isinstance(n, int) -> valida si n es un int (valida que n sea del tipo indicado)
     if not isinstance(n, int):
         #   raise ValueError lanza el error
@@ -22,6 +24,7 @@ def convRomanos(n):
     validar(n)
     
     c = str(n)
+    #c ="{:0d4}".format(n)
     
     unidades = decenas = centenas = millares = 0
     if len(c) >= 1:
@@ -85,7 +88,8 @@ def conversor(entrada):
 def convSimbolos(n):
     acumulador = 0
     valor_ant = 0
-    repeticion = 0 
+    repeticion = 0
+    mayor = 0 
     for caracter in n:
         valor = Numeros_romanos[caracter]
 
@@ -96,19 +100,27 @@ def convSimbolos(n):
             if valor_ant > 0 and valor> valor_ant * 10:
                 raise ValueError("No se admiten restas en digitos 10 veces mayores")
 
-            if repeticion > 0: #Al poner repeticion > 0 al inicio del bucle me aseguro que no tiene valor 0 al cambiar de caracter
+            if repeticion > 0: #Al poner repeticion > 0 al inicio del bucle me aseguro que no tiene valor 0 al cambiar de caracter si se ha repetido antes
                 raise ValueError("No se pueden restar dos iguales")
+            
+            mayor +=1
 
+            if mayor > 2:
+                raise ValueError("Has pikao")
+            
 
             acumulador -= valor_ant
             acumulador += valor - valor_ant
         else:
             acumulador += valor
+            mayor = 0
 
         if valor == valor_ant:
+            if valor_ant in (5, 50, 500):
+                raise ValueError("No puede usarse el caracter {} dos veces".format(caracter))
             repeticion += 1
             if repeticion == 3:
-                raise ValueError("No se pueden poner 4 veces el mismo simbolo")
+                raise ValueError("No se puede poner 4 veces el simbolo {}".format(caracter))
         else:
             repeticion = 0
 

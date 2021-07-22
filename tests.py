@@ -42,4 +42,6 @@ class RomanosTests(unittest.TestCase):
     def test_no_restas_dos_iguales(self):
         with self.assertRaises(ValueError):
             convSimbolos('CCM')
+            convSimbolos("IXC")
+            convSimbolos("XCM")
 
