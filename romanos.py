@@ -91,7 +91,9 @@ def convSimbolos(n):
     repeticion = 0
     mayor = 0 
     for caracter in n:
-        valor = Numeros_romanos[caracter]
+        valor = Numeros_romanos.get(caracter) #comprueba si el caracter esta en la lista, si falla suelta None
+        if not valor:
+            raise ValueError("Error que sea")
 
         if valor_ant and valor > valor_ant:
             if valor_ant in (5, 50, 500):
