@@ -71,7 +71,6 @@ class RomanNumber():
                 repeticion = 0
 
             valor_ant = valor
-
         return acumulador
 
     def convRomanos(self):
@@ -93,14 +92,17 @@ class RomanNumber():
         #return millares, centenas, decenas, unidades
         componentes = (millares, centenas, decenas, unidades)
         return self.simbolos["millares"][millares] + self.simbolos["centenas"][centenas] + self.simbolos["decenas"][decenas] + self.simbolos["unidades"][unidades]
+        
 
     def __str__(self):
         return self.cadena
     
     def __repr__(self):
         return self.__str__()
+
     def __len__(self):
         return len(self.cadena)
+
     def __eq__(self, other):
         if isinstance(other, RomanNumber):
             return self.valor== other.valor
@@ -114,24 +116,72 @@ class RomanNumber():
     
     def __lt__(self, other):
         if isinstance(other, RomanNumber):
+            return self.valor < other.valor
+        if isinstance(other, int):
+            return self.valor < other
+        if isinstance(other, float):
+            return self.valor < other
+        if isinstance(other, str):
+            return self.valor < RomanNumber(other).valor
+        raise ValueError("{} solo puede ser entero, cadena, flotante o RomanNumber".format(other))
+
+    def __le__(self, other):
+        if isinstance(other, RomanNumber):
             return self.valor <= other.valor
         if isinstance(other, int):
             return self.valor <= other
         if isinstance(other, float):
             return self.valor <= other
         if isinstance(other, str):
-            return self.cadena <= other
+            return self.valor <= RomanNumber(other).valor
         raise ValueError("{} solo puede ser entero, cadena, flotante o RomanNumber".format(other))
-    def __lte__(self, other):
+
+    def __gt__(self, other):
         if isinstance(other, RomanNumber):
-                return self.valor <= other.valor
+            return self.valor > other.valor
         if isinstance(other, int):
-            return self.valor <= other
+            return self.valor > other
         if isinstance(other, float):
-            return self.valor <= other
+            return self.valor > other
         if isinstance(other, str):
-            return self.cadena <= other
+            return self.valor > RomanNumber(other).valor
         raise ValueError("{} solo puede ser entero, cadena, flotante o RomanNumber".format(other))
-    #def __gt__(self, other):
     
-    #def __gte__(sel, other):
+    def __ge__(self, other):
+        if isinstance(other, RomanNumber):
+            return self.valor >= other.valor
+        if isinstance(other, int):
+            return self.valor >= other
+        if isinstance(other, float):
+            return self.valor >= other
+        if isinstance(other, str):
+            return self.valor >= RomanNumber(other).valor
+        raise ValueError("{} solo puede ser entero, cadena, flotante o RomanNumber".format(other))
+
+    def __ne__(self, other): #(not equal)
+        if isinstance(other, RomanNumber):
+            return self.valor != other.valor
+        if isinstance(other, int):
+            return self.valor != other
+        if isinstance(other, float):
+            return self.valor != other
+        if isinstance(other, str):
+            return self.cadena != other    
+        raise ValueError("{} solo puede ser entero, cadena, flotante o RomanNumber".format(other))
+    
+    def __add__(self, other):
+        if isinstance(other, RomanNumber):
+            return RomanNumber(other.valor + self.valor)
+        if isinstance(other, int):
+            return RomanNumber(other + self.valor)
+        if isinstance(other, float):
+            raise ValueError("{} solo puede ser entero, cadena o RomanNumber".format(other))
+        if isinstance(other, str):
+            otronumero = RomanNumber(other)
+            return RomanNumber(otronumero.valor + self.valor)
+    
+    def __radd__(self, other):
+        return self.__add__(other)
+    
+    def __iadd__(self, other):
+        return self.__add__(other)
